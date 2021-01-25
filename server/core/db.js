@@ -43,8 +43,7 @@ module.exports = {
     let sslOptions = null
     if (dbUseSSL && _.isPlainObject(dbConfig) && _.get(WIKI.config.db, 'sslOptions.auto', null) === false) {
       sslOptions = WIKI.config.db.sslOptions
-      // eslint-disable-next-line no-unneeded-ternary
-      sslOptions.rejectUnauthorized = sslOptions.rejectUnauthorized === false ? false : true
+      sslOptions.rejectUnauthorized = sslOptions.rejectUnauthorized !== false
       if (sslOptions.ca && sslOptions.ca.indexOf('-----') !== 0) {
         sslOptions.ca = fs.readFileSync(path.resolve(WIKI.ROOTPATH, sslOptions.ca))
       }
@@ -139,6 +138,10 @@ module.exports = {
           switch (WIKI.config.db.type) {
             case 'postgres':
               await conn.query(`set application_name = 'Wiki.js'`)
+              done()
+              break
+            case 'mysql':
+              await conn.promise().query(`set autocommit = 1`)
               done()
               break
             default:
