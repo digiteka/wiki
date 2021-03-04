@@ -1,8 +1,9 @@
 <template lang="pug">
   v-app
-    .login(:style='`background-image: url(` + bgUrl + `);`')
+    //-.login(:style='`background-image: url(` + bgUrl + `);`')
+    .login.dtk-login
       .login-sd
-        .d-flex.mb-5
+        .d-flex.mb-5.dtk-over
           .login-logo
             v-avatar(tile, size='34')
               v-img(:src='logoUrl')
@@ -691,6 +692,68 @@ export default {
 </script>
 
 <style lang="scss">
+
+  $text: #4d4f5c;
+  $text-dark-blue: #1D2C7B;
+  $primary-background: #F4F6FB;
+  $dark-blue: #000B46;
+  $primary-blue:  #2f45b5;
+  $primary-green: #0fd3bd;
+  $primary-pink: #F92D5B;
+
+  $warning: #ff9800;
+  $danger: #f92d5b;
+  $success: $primary-green;
+  $info:$primary-blue;
+
+  .dtk-login{
+    &.login{
+      background-color: $dark-blue;
+
+      .login-sd{
+        background-color: #FFF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .dtk-over{
+          &.d-flex{
+            justify-content: center;
+          }
+        }
+
+        .login-logo{background-color: transparent;}
+
+        .login-subtitle{
+          background-image: none;
+          border-bottom:none;
+
+          .text-subtitle-1{
+            font-size: 18px;
+            font-weight:700;
+            color:$text-dark-blue;
+          }
+        }
+
+        .login-form{
+          .v-input__slot{
+            margin-bottom: 20px;
+            &.white{
+              background-color: #E4E5EB !important;
+            }
+          }
+
+          .v-btn{
+            &.blue.darken-2{
+              background-color: $primary-pink !important;
+              border-radius: 50px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .login {
     // background-image: url('/_assets/img/splash/1.jpg');
     background-color: mc('grey', '900');
